@@ -35,7 +35,7 @@ export default function Player({ player, playerTeam, deleteHandler }: Props) {
       } ${playerTeam === 'CT' ? 'flex-col bg-lightblue p-2 gap-1 px-1' : ''}`}
     >
       <p
-        className={`text-2xl text-ellipsis overflow-hidden max-w-[40vw] ${
+        className={`text-2xl text-ellipsis overflow-hidden max-w-[40vw] h-8 ${
           playerTeam === 'T' ? 'bg-brown w-full text-center rounded-lg' : ''
         }${
           playerTeam === 'CT' ? 'bg-darkblue w-full text-center rounded-lg' : ''
