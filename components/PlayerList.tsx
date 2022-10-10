@@ -247,7 +247,7 @@ export default function PlayerList() {
       )}
       {isRandomized && (
         <button
-          className={`animate-slideleft w-20 bg-sky-600 h-20 flex-col  bottom-3 right-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed`}
+          className={`animate-slideleft w-20 bg-sky-600 h-20 flex-col  bottom-3 right-3 rounded-lg flex justify-center items-center fixed`}
           onClick={() => {
             setIsRandomized(false);
           }}
