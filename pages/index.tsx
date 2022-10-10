@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <Fragment>
       <header className='fixed z-50 w-full'>
         <div className='h-20 bg-gray-800 flex items-center justify-between p-8 '>
-          <p className='font-bold text-2xl'>ASG TEAM BALANCER</p>
+          <p className='text-2xl'>ASG TEAM BALANCER</p>
           <div className='h-16 w-16 relative bg-gray-300 rounded-lg'>
             <Image
               src='/icons/logo.png'

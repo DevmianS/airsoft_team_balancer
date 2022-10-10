@@ -131,7 +131,7 @@ export default function PlayerList() {
                 objectFit='contain'
               />
             </div>
-            <p className='text-md uppercase font-bold'>C-Terrorists</p>
+            <p className='text-md uppercase'>C-Terrorists</p>
             <ul className='w-full h-full flex flex-col gap-4 items-center py-5'>
               {counterTerrorists.map(player => (
                 <Player key={player.id} playerTeam={'CT'} player={player} />
@@ -148,7 +148,7 @@ export default function PlayerList() {
                 objectFit='contain'
               />
             </div>
-            <p className='text-md uppercase font-bold'>Terrorists</p>
+            <p className='text-md uppercase'>Terrorists</p>
             <ul className='w-full h-full flex flex-col gap-4 items-center py-5'>
               {terrorists.map(player => (
                 <Player key={player.id} playerTeam={'T'} player={player} />
