@@ -131,7 +131,7 @@ export default function PlayerList() {
                 objectFit='contain'
               />
             </div>
-            <p className='text-md uppercase'>C-Terrorists</p>
+            <p className='text-md uppercase'>Counter-T</p>
             <ul className='w-full h-full flex flex-col gap-4 items-center py-5'>
               {counterTerrorists.map(player => (
                 <Player key={player.id} playerTeam={'CT'} player={player} />
@@ -179,7 +179,7 @@ export default function PlayerList() {
                 />
               </svg>
             </p>
-            <p className='text-xs'>REBALANCE</p>
+            <p className='text-xs'>CREATE TEAMS</p>
           </button>
           <div className='w-full flex justify-center mt-4'>
             <button
@@ -210,13 +210,13 @@ export default function PlayerList() {
       {allPlayers.length === 0 && (
         <div className='w-full h-full flex justify-center items-center'>
           <span className='text-4xl text-center'>
-            Tap
+            Press
             <button
               onClick={e => {
                 e.stopPropagation();
                 setInputVisible(true);
               }}
-              className='text-6xl inline-flex w-20 h-20 bg-sky-600 rounded-lg justify-center items-center'
+              className='m-4 text-6xl inline-flex w-20 h-20 bg-sky-600 rounded-lg justify-center items-center'
             >
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -233,6 +233,7 @@ export default function PlayerList() {
                 />
               </svg>
             </button>
+            <br />
             to add new players
           </span>
         </div>
