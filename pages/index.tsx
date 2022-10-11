@@ -8,7 +8,7 @@ const Home: NextPage = () => {
     <Fragment>
       <header className='fixed z-50 w-full'>
         <div className='h-20 bg-gray-800 flex items-center justify-between pl-8 pr-4'>
-          <div className='absolute left-0 top-0 w-20 h-20 bg-slate-200 github pr-9'>
+          <div className='absolute left-0 top-0 w-20 h-20 bg-slate-200 github pr-9 pl-1 pt-1'>
             <a
               href='https://github.com/DevmianS/airsoft_team_balancer'
               target='_blank'
