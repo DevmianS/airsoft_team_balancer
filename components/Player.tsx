@@ -13,7 +13,6 @@ export default function Player({ player, playerTeam, deleteHandler }: Props) {
   const [readyToDelete, setReadyToDelete] = useState(false);
 
   function playerHandler() {
-    // console.log(playerRef?.current?.dataset.playerid);
     if (!playerTeam) {
       setReadyToDelete(state => !state);
     }
@@ -21,9 +20,9 @@ export default function Player({ player, playerTeam, deleteHandler }: Props) {
 
   function getPlayerClass(playerTeam = 'CT') {
     if (player.class === 'Rifleman' && playerTeam === 'T')
-      return '/icons/ak47.png';
-    if (player.class === 'Rifleman') return '/icons/m4.png';
-    if (player.class === 'Sniper') return '/icons/sniper.png';
+      return '/icons/ak47.webp';
+    if (player.class === 'Rifleman') return '/icons/m4.webp';
+    if (player.class === 'Sniper') return '/icons/sniper.webp';
     else return '';
   }
 
@@ -65,7 +64,7 @@ export default function Player({ player, playerTeam, deleteHandler }: Props) {
               deleteHandler(playerRef.current?.dataset.playerid);
             }
           }}
-          className='absolute right-4 top-0 bottom-0 w-20 h-20 bg-red-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center'
+          className='absolute right-4 top-0 gap-1 bottom-0 w-20 h-20 bg-red-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center'
         >
           <p className='text-6xl'>
             <svg

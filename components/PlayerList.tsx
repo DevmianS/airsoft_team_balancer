@@ -170,7 +170,7 @@ export default function PlayerList() {
       {allPlayers.length !== 0 && (
         <>
           <button
-            className={`w-20 bg-sky-600 h-20 flex-col ${
+            className={`w-20 bg-sky-600 h-20 flex-col  ${
               !isRandomized && allPlayers.length > 1 ? 'animate-bounce' : ''
             } bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed animate-slideright`}
             onClick={balancer}
@@ -195,7 +195,7 @@ export default function PlayerList() {
           </button>
           <div className='w-full flex justify-center mt-4'>
             <button
-              className={` animate-slidedown w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center transition-all duration-300 items-center`}
+              className={` animate-slidedown w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center gap-1 transition-all duration-300 items-center`}
               onClick={deleteAllPlayers}
             >
               <p className='text-6xl'>
