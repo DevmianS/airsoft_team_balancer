@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+// import autoAnimate from '@formkit/auto-animate';
+
 import PlayerType from '../types/playerType';
 import AddNewPlayer from './AddNewPlayer';
 
@@ -8,6 +10,7 @@ import Player from './Player';
 
 export default function PlayerList() {
   const containerRef = useRef(null);
+  const animateListRef = useRef(null);
 
   const [allPlayers, setAllPlayersArr] = useState<PlayerType[]>([]);
   const [terrorists, setTerrorists] = useState<PlayerType[]>([]);
@@ -18,6 +21,10 @@ export default function PlayerList() {
   const [isRandomized, setIsRandomized] = useState(false);
 
   const [inputVisible, setInputVisible] = useState(false);
+
+  // useEffect(() => {
+  //   animateListRef.current && autoAnimate(animateListRef.current);
+  // }, [animateListRef]);
 
   useEffect(() => {
     if (allPlayers.length !== 0 || !localStorage.getItem('players')) {
@@ -108,7 +115,10 @@ export default function PlayerList() {
       }}
     >
       {!isRandomized && (
-        <ul className='w-full h-fit flex flex-col gap-4 items-center py-2'>
+        <ul
+          ref={animateListRef}
+          className='w-full h-fit flex flex-col gap-4 items-center py-2'
+        >
           {allPlayers.map(player => (
             <Player
               inputVisible={inputVisible}

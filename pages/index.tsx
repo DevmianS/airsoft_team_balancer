@@ -25,7 +25,7 @@ const Home: NextPage = () => {
           <p className='text-xl ml-10'>ASG TEAM BALANCER</p>
           <div className='h-16 w-16 relative rounded-lg'>
             <Image
-              src='/icons/logo.webp'
+              src='/icons/balancerlogo.webp'
               alt='logo'
               layout='fill'
               objectFit='contain'
