@@ -46,7 +46,7 @@ export default function AddNewPlayer({
     <form
       className={`bg-gray-800 h-20   bottom-3 right-3 animate-slideleft ${
         inputVisible ? 'left-3 h-56' : ''
-      } rounded-lg flex justify-between transition-all duration-300 items-center fixed`}
+      } rounded-lg flex justify-between transition-all duration-300 items-center fixed z-20`}
     >
       {inputVisible && (
         <div
@@ -108,7 +108,7 @@ export default function AddNewPlayer({
       )}
       <button
         className={`w-20 h-full bg-sky-600  flex justify-center flex-col items-center ${
-          inputVisible ? 'rounded-r-lg' : 'rounded-lg'
+          inputVisible ? 'rounded-r-lg ' : 'rounded-lg'
         }`}
         onClick={e => {
           e.preventDefault();
@@ -124,7 +124,7 @@ export default function AddNewPlayer({
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='w-12 h-12'
+            className='w-12 h-12 active:animate-spin'
           >
             <path
               strokeLinecap='round'

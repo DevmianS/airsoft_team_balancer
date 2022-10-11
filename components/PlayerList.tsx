@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import PlayerType from '../types/playerType';
@@ -102,7 +102,7 @@ export default function PlayerList() {
   return (
     <div
       ref={containerRef}
-      className='flex flex-col'
+      className={`flex flex-col ${allPlayers.length < 1 ? 'h-full' : ''}`}
       onClick={e => {
         setInputVisible(false);
       }}
@@ -111,6 +111,7 @@ export default function PlayerList() {
         <ul className='w-full h-fit flex flex-col gap-4 items-center py-2'>
           {allPlayers.map(player => (
             <Player
+              inputVisible={inputVisible}
               deleteHandler={deletePlayer}
               key={player.id}
               player={player}
@@ -121,7 +122,7 @@ export default function PlayerList() {
       {isRandomized && (
         <div className='flex'>
           <div className='flex flex-col w-full justify-center gap-2 items-center bg-darkblue '>
-            <div className={`h-28 w-28 relative rounded-lg mt-2`}>
+            <div className={`h-28 w-28 relative rounded-lg mt-2 animate-pop`}>
               <Image
                 src={'/icons/counterterrorists.webp'}
                 alt='logo'
@@ -138,7 +139,7 @@ export default function PlayerList() {
           </div>
 
           <div className='flex flex-col w-full justify-center gap-2 items-center bg-lightbrown'>
-            <div className={`h-28 w-28 relative rounded-lg mt-2`}>
+            <div className={`h-28 w-28 relative rounded-lg mt-2 animate-pop`}>
               <Image
                 src={'/icons/terrorists.webp'}
                 alt='logo'
@@ -159,9 +160,11 @@ export default function PlayerList() {
       {allPlayers.length !== 0 && (
         <>
           <button
-            className={`w-20 bg-sky-600 h-20 flex-col z-50 ${
-              !isRandomized && allPlayers.length > 1 ? 'animate-bounce' : ''
-            } bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed animate-slideright`}
+            className={`w-20 bg-sky-600 h-20 flex-col z-10 bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed  ${
+              !isRandomized && allPlayers.length > 1
+                ? 'animate-bounce'
+                : 'animate-slideright'
+            }`}
             onClick={balancer}
           >
             <p className='text-6xl'>
@@ -171,12 +174,12 @@ export default function PlayerList() {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='w-12 h-12'
+                className='w-12 h-12 active:animate-spin'
               >
                 <path
                   strokeLinecap='round'
                   strokeLinejoin='round'
-                  d='M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3'
+                  d='M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99'
                 />
               </svg>
             </p>
@@ -184,7 +187,7 @@ export default function PlayerList() {
           </button>
           <div className='w-full flex justify-center mt-4'>
             <button
-              className={` animate-slidedown w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center gap-1 transition-all duration-300 items-center`}
+              className={`animate-pop w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center gap-1 transition-all duration-300 items-center`}
               onClick={deleteAllPlayers}
             >
               <p className='text-6xl'>

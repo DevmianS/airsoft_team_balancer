@@ -18,6 +18,7 @@ module.exports = {
         slidedown: 'slidedown 300ms forwards ease-out',
         slideright: 'slideright 300ms forwards ease-out',
         slideleft: 'slideleft 300ms forwards ease-out',
+        pop: 'pop 150ms forwards ease-out',
       },
     },
   },
