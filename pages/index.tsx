@@ -23,12 +23,12 @@ const Home: NextPage = () => {
             </a>
           </div>
           <p className='text-xl ml-10'>ASG TEAM BALANCER</p>
-          <div className='h-16 w-16 relative  rounded-lg'>
+          <div className='h-16 w-16 relative rounded-lg'>
             <Image
               src='/icons/logo.webp'
               alt='logo'
               layout='fill'
-              objectFit='cover'
+              objectFit='contain'
             />
           </div>
         </div>

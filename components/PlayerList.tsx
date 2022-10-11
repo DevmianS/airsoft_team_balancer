@@ -102,21 +102,11 @@ export default function PlayerList() {
   return (
     <div
       ref={containerRef}
-      className='flex flex-col h-full'
+      className='flex flex-col'
       onClick={e => {
         setInputVisible(false);
       }}
     >
-      <div
-        className={`bg-gray-900 flex justify-center fixed bottom-0 w-full transition-all ${
-          inputVisible ? 'pointer-events-none' : ''
-        }`}
-      >
-        <a href='https://damiansobieraj.com' target='_blank' rel='noreferrer'>
-          <p>© 2022 Devmian</p>
-        </a>
-      </div>
-
       {!isRandomized && (
         <ul className='w-full h-fit flex flex-col gap-4 items-center py-2'>
           {allPlayers.map(player => (
@@ -165,10 +155,11 @@ export default function PlayerList() {
           </div>
         </div>
       )}
+
       {allPlayers.length !== 0 && (
         <>
           <button
-            className={`w-20 bg-sky-600 h-20 flex-col  ${
+            className={`w-20 bg-sky-600 h-20 flex-col z-50 ${
               !isRandomized && allPlayers.length > 1 ? 'animate-bounce' : ''
             } bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed animate-slideright`}
             onClick={balancer}
@@ -217,6 +208,15 @@ export default function PlayerList() {
           </div>
         </>
       )}
+      <div
+        className={`bg-gray-900 flex justify-center fixed bottom-0 w-full transition-all ${
+          inputVisible ? 'pointer-events-none' : ''
+        }`}
+      >
+        <a href='https://damiansobieraj.com' target='_blank' rel='noreferrer'>
+          <p>© 2022 Devmian</p>
+        </a>
+      </div>
       {allPlayers.length === 0 && (
         <div className='w-full h-full flex justify-center items-center'>
           <span className='text-4xl text-center'>
