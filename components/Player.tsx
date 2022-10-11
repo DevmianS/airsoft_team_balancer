@@ -11,10 +11,12 @@ interface Props {
 export default function Player({ player, playerTeam, deleteHandler }: Props) {
   const playerRef = useRef<HTMLLIElement>(null);
   const [readyToDelete, setReadyToDelete] = useState(false);
-  function playerHandler() {
-    console.log(playerRef?.current?.dataset.playerid);
 
-    setReadyToDelete(state => !state);
+  function playerHandler() {
+    // console.log(playerRef?.current?.dataset.playerid);
+    if (!playerTeam) {
+      setReadyToDelete(state => !state);
+    }
   }
 
   function getPlayerClass(playerTeam = 'CT') {
@@ -63,7 +65,7 @@ export default function Player({ player, playerTeam, deleteHandler }: Props) {
               deleteHandler(playerRef.current?.dataset.playerid);
             }
           }}
-          className='absolute right-4 top-0 bottom-0 w-20 h-20 bg-sky-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center'
+          className='absolute right-4 top-0 bottom-0 w-20 h-20 bg-red-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center'
         >
           <p className='text-6xl'>
             <svg

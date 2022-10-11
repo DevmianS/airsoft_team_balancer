@@ -51,7 +51,7 @@ export default function AddNewPlayer({
     >
       {inputVisible && (
         <div
-          className='flex flex-col justify-between h-full p-4'
+          className='flex flex-col justify-between h-full w-4/5 p-4'
           onClick={e => {
             e.stopPropagation();
           }}

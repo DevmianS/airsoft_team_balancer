@@ -87,3 +87,7 @@ label img {
     transform: translateX(0px);
   }
 }
+
+.github {
+  clip-path: polygon(0 0, 0% 100%, 100% 0);
+}

@@ -109,6 +109,16 @@ export default function PlayerList() {
         setInputVisible(false);
       }}
     >
+      <div
+        className={`bg-gray-900 flex justify-center fixed bottom-0 w-full transition-all ${
+          inputVisible ? 'pointer-events-none' : ''
+        }`}
+      >
+        <a href='https://damiansobieraj.com' target='_blank' rel='noreferrer'>
+          <p>© 2022 Devmian</p>
+        </a>
+      </div>
+
       {!isRandomized && (
         <ul className='w-full h-fit flex flex-col gap-4 items-center py-2'>
           {allPlayers.map(player => (
@@ -122,7 +132,7 @@ export default function PlayerList() {
       )}
       {isRandomized && (
         <div className='flex'>
-          <div className='flex flex-col w-full justify-center items-center bg-darkblue '>
+          <div className='flex flex-col w-full justify-center gap-2 items-center bg-darkblue '>
             <div className={`h-28 w-28 relative rounded-lg mt-2`}>
               <Image
                 src={'/icons/counterterrorists.png'}
@@ -131,15 +141,15 @@ export default function PlayerList() {
                 objectFit='contain'
               />
             </div>
-            <p className='text-md uppercase'>Counter-T</p>
-            <ul className='w-full h-full flex flex-col gap-4 items-center py-5'>
+            <p className='text-xs uppercase'>Counter-Terrorists</p>
+            <ul className='w-full h-full flex flex-col gap-4 items-center'>
               {counterTerrorists.map(player => (
                 <Player key={player.id} playerTeam={'CT'} player={player} />
               ))}
             </ul>
           </div>
 
-          <div className='flex flex-col w-full justify-center items-center bg-lightbrown'>
+          <div className='flex flex-col w-full justify-center gap-2 items-center bg-lightbrown'>
             <div className={`h-28 w-28 relative rounded-lg mt-2`}>
               <Image
                 src={'/icons/terrorists.png'}
@@ -148,8 +158,8 @@ export default function PlayerList() {
                 objectFit='contain'
               />
             </div>
-            <p className='text-md uppercase'>Terrorists</p>
-            <ul className='w-full h-full flex flex-col gap-4 items-center py-5'>
+            <p className='text-xs uppercase'>Terrorists</p>
+            <ul className='w-full h-full flex flex-col gap-4 items-center'>
               {terrorists.map(player => (
                 <Player key={player.id} playerTeam={'T'} player={player} />
               ))}
@@ -160,7 +170,9 @@ export default function PlayerList() {
       {allPlayers.length !== 0 && (
         <>
           <button
-            className={`w-20 bg-sky-600 h-20 flex-col  bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed animate-slideright`}
+            className={`w-20 bg-sky-600 h-20 flex-col ${
+              !isRandomized && allPlayers.length > 1 ? 'animate-bounce' : ''
+            } bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed animate-slideright`}
             onClick={balancer}
           >
             <p className='text-6xl'>
@@ -183,7 +195,7 @@ export default function PlayerList() {
           </button>
           <div className='w-full flex justify-center mt-4'>
             <button
-              className={` animate-slidedown w-20 bg-sky-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center transition-all duration-300 items-center`}
+              className={` animate-slidedown w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center transition-all duration-300 items-center`}
               onClick={deleteAllPlayers}
             >
               <p className='text-6xl'>
@@ -212,26 +224,31 @@ export default function PlayerList() {
           <span className='text-4xl text-center'>
             Press
             <button
+              className={`m-4 text-6xl inline-flex flex-col w-20 h-20 bg-sky-600 rounded-lg justify-center items-center ${
+                !inputVisible ? 'animate-bounce' : ''
+              }`}
               onClick={e => {
                 e.stopPropagation();
                 setInputVisible(true);
               }}
-              className='m-4 text-6xl inline-flex w-20 h-20 bg-sky-600 rounded-lg justify-center items-center'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='none'
-                viewBox='0 0 24 24'
-                strokeWidth={1.5}
-                stroke='currentColor'
-                className='w-12 h-12'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M12 4.5v15m7.5-7.5h-15'
-                />
-              </svg>
+              <p className='text-6xl'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='w-12 h-12'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M12 4.5v15m7.5-7.5h-15'
+                  />
+                </svg>
+              </p>
+              <p className='text-xs'>ADD NEW</p>
             </button>
             <br />
             to add new players
