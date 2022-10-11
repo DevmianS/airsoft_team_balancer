@@ -40,12 +40,11 @@ export default function AddNewPlayer({
       setInputVisible(false);
       playerCount.setCount(cur => cur + 1);
     }
-    console.log(newPlayer);
   };
 
   return (
     <form
-      className={`bg-gray-800 h-20  bottom-3 right-3 animate-slideleft ${
+      className={`bg-gray-800 h-20   bottom-3 right-3 animate-slideleft ${
         inputVisible ? 'left-3 h-56' : ''
       } rounded-lg flex justify-between transition-all duration-300 items-center fixed`}
     >
@@ -71,7 +70,7 @@ export default function AddNewPlayer({
                 />
                 <Image
                   className='invert'
-                  src='/icons/m4.png'
+                  src='/icons/m4.webp'
                   alt='logo'
                   layout='fill'
                   objectFit='cover'
@@ -89,7 +88,7 @@ export default function AddNewPlayer({
                 />
                 <Image
                   className='invert'
-                  src='/icons/sniper.png'
+                  src='/icons/sniper.webp'
                   alt='logo'
                   layout='fill'
                   objectFit='cover'

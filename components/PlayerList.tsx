@@ -23,7 +23,6 @@ export default function PlayerList() {
     if (allPlayers.length !== 0 || !localStorage.getItem('players')) {
       localStorage.setItem('players', JSON.stringify(allPlayers));
     }
-    console.log(allPlayers);
     setPlayerCount(allPlayers.length + 1);
   }, [allPlayers]);
 
@@ -96,7 +95,6 @@ export default function PlayerList() {
   function deletePlayer(playerId: string) {
     setAllPlayersArr(arr => arr.filter(player => player.id !== playerId));
     if (allPlayers.length === 0) {
-      console.log(allPlayers);
       localStorage.removeItem('players');
     }
   }
@@ -135,7 +133,7 @@ export default function PlayerList() {
           <div className='flex flex-col w-full justify-center gap-2 items-center bg-darkblue '>
             <div className={`h-28 w-28 relative rounded-lg mt-2`}>
               <Image
-                src={'/icons/counterterrorists.png'}
+                src={'/icons/counterterrorists.webp'}
                 alt='logo'
                 layout='fill'
                 objectFit='contain'
@@ -152,7 +150,7 @@ export default function PlayerList() {
           <div className='flex flex-col w-full justify-center gap-2 items-center bg-lightbrown'>
             <div className={`h-28 w-28 relative rounded-lg mt-2`}>
               <Image
-                src={'/icons/terrorists.png'}
+                src={'/icons/terrorists.webp'}
                 alt='logo'
                 layout='fill'
                 objectFit='contain'
