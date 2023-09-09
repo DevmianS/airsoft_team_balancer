@@ -22,10 +22,6 @@ export default function PlayerList() {
 
   const [inputVisible, setInputVisible] = useState(false);
 
-  // useEffect(() => {
-  //   animateListRef.current && autoAnimate(animateListRef.current);
-  // }, [animateListRef]);
-
   useEffect(() => {
     if (allPlayers.length !== 0 || !localStorage.getItem("players")) {
       localStorage.setItem("players", JSON.stringify(allPlayers));
@@ -126,8 +122,8 @@ export default function PlayerList() {
         </ul>
       )}
       {isRandomized && (
-        <div className="flex">
-          <div className="flex flex-col w-full justify-center gap-2 items-center bg-darkblue ">
+        <div className="flex bg-gradient-to-r from-darkblue to-brown">
+          <div className="flex flex-col w-full justify-center gap-2 items-center ">
             <div className={`h-28 w-28 relative rounded-lg mt-2 animate-pop`}>
               <Image
                 src={"/icons/counterterrorists.webp"}
@@ -144,7 +140,7 @@ export default function PlayerList() {
             </ul>
           </div>
 
-          <div className="flex flex-col w-full justify-center gap-2 items-center bg-lightbrown">
+          <div className="flex flex-col w-full justify-center gap-2 items-center ">
             <div className={`h-28 w-28 relative rounded-lg mt-2 animate-pop`}>
               <Image
                 src={"/icons/terrorists.webp"}
