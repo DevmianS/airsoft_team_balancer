@@ -1,5 +1,7 @@
+import PlayerClassType from "./playerClassType";
+
 export default interface PlayerType {
   id: string;
   name: string;
-  class: 'Rifleman' | 'Sniper';
+  class: PlayerClassType;
 }
