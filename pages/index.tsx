@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <Fragment>
       <header className="fixed z-50 w-full">
-        <div className="h-20 bg-gradient-to-r from-darkblue to-brown flex items-center justify-between pl-8 pr-4">
+        <div className="h-20 bg-gradient-to-r from-darkblue to-lighterblue flex items-center justify-between pl-8 pr-4">
           <div className="absolute left-0 top-0 w-20 h-20 bg-slate-200 github pr-9 pl-1 pt-1">
             <a
               href="https://github.com/DevmianS/airsoft_team_balancer"

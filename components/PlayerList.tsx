@@ -101,11 +101,28 @@ export default function PlayerList() {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col ${allPlayers.length < 1 ? "h-full" : ""}`}
+      className={`relative flex flex-col ${
+        allPlayers.length < 1 ? "h-full" : ""
+      }`}
       onClick={(e) => {
         setInputVisible(false);
       }}
     >
+      {allPlayers.length > 0 && !isRandomized && (
+        <div className="w-20 bg-sky-600 h-8 flex-col text-xl z-10 top-[-16px] right-[50%] translate-x-[50%] rounded-b-lg flex justify-center transition-all duration-300 items-center absolute">
+          {allPlayers.length}
+        </div>
+      )}
+      {terrorists.length > 0 && isRandomized && (
+        <div className="w-20 bg-sand h-8 flex-col text-xl z-10 top-[-16px] right-0 translate-x-[50%] rounded-bl-lg flex justify-center transition-all duration-300 items-center absolute animate-slideleft">
+          {terrorists.length}
+        </div>
+      )}
+      {counterTerrorists.length > 0 && isRandomized && (
+        <div className="w-20 bg-lightblue h-8 flex-col text-xl z-10 top-[-16px] left-0 translate-x-[50%] rounded-br-lg flex justify-center transition-all duration-300 items-center absolute animate-slideright">
+          {counterTerrorists.length}
+        </div>
+      )}
       {!isRandomized && (
         <ul
           ref={animateListRef}
@@ -158,7 +175,6 @@ export default function PlayerList() {
           </div>
         </div>
       )}
-
       {allPlayers.length !== 0 && (
         <>
           <button
