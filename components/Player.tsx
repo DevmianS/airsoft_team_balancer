@@ -6,6 +6,7 @@ interface Props {
   player: PlayerType;
   playerTeam?: "T" | "CT";
   deleteHandler?: (playerId: string) => void;
+  togglePlayerClass?: (playerId: string) => void;
   inputVisible?: boolean;
 }
 
@@ -13,14 +14,15 @@ export default function Player({
   player,
   playerTeam,
   deleteHandler,
+  togglePlayerClass,
   inputVisible,
 }: Props) {
   const playerRef = useRef<HTMLLIElement>(null);
-  const [readyToDelete, setReadyToDelete] = useState(false);
+  const [showModifyButtons, setShowModifyButtons] = useState(false);
 
   function playerHandler() {
     if (!playerTeam && !inputVisible) {
-      setReadyToDelete((state) => !state);
+      setShowModifyButtons((state) => !state);
     }
   }
 
@@ -79,9 +81,31 @@ export default function Player({
           objectFit="contain"
         />
       </div>
-      {readyToDelete && (
+      {showModifyButtons && (
         <button
-          onClick={(e) => {
+          onClick={() => {
+            if (playerRef.current?.dataset.playerid && togglePlayerClass) {
+              togglePlayerClass(playerRef.current?.dataset.playerid);
+            }
+          }}
+          className="absolute right-28 top-0 gap-1 bottom-0 w-20 h-20 bg-red-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center animate-pop"
+        >
+          <svg
+            focusable="false"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            data-testid="AutorenewIcon"
+            stroke="transparent"
+            fill="currentColor"
+          >
+            <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6m6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26"></path>
+          </svg>
+          CLASS
+        </button>
+      )}
+      {showModifyButtons && (
+        <button
+          onClick={() => {
             if (playerRef.current?.dataset.playerid && deleteHandler) {
               deleteHandler(playerRef.current?.dataset.playerid);
             }

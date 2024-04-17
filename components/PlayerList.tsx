@@ -98,6 +98,25 @@ export default function PlayerList() {
     }
   }
 
+  function togglePlayerClass(playerId: string) {
+    console.log("🟥", playerId);
+    setAllPlayersArr((prev) =>
+      prev.map((player) => {
+        if (player.id === playerId) {
+          return {
+            ...player,
+            class: player.class === "Rifleman" ? "Sniper" : "Rifleman",
+          };
+        }
+        return player;
+      })
+    );
+    // setAllPlayersArr((arr) => arr.filter((player) => player.id !== playerId));
+    // if (allPlayers.length === 0) {
+    //   localStorage.removeItem("players");
+    // }
+  }
+
   return (
     <div
       ref={containerRef}
@@ -132,6 +151,7 @@ export default function PlayerList() {
             <Player
               inputVisible={inputVisible}
               deleteHandler={deletePlayer}
+              togglePlayerClass={togglePlayerClass}
               key={player.id}
               player={player}
             />
