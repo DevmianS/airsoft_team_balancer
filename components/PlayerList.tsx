@@ -137,6 +137,13 @@ export default function PlayerList() {
     return allPlayers.filter((player) => !player.disabled).length;
   };
 
+  const sortPlayers = (players: PlayerType[]) => {
+    return [...players].sort((a, b) => {
+      if (a.disabled === b.disabled) return 0;
+      return a.disabled ? 1 : -1;
+    });
+  };
+
   return (
     <div
       ref={containerRef}
@@ -168,7 +175,7 @@ export default function PlayerList() {
           ref={animateListRef}
           className="w-full h-fit flex flex-col gap-4 items-center py-2"
         >
-          {allPlayers.map((player) => (
+          {sortPlayers(allPlayers).map((player) => (
             <Player
               inputVisible={inputVisible}
               deleteHandler={deletePlayer}
