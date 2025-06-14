@@ -1,12 +1,13 @@
 import React from "react";
 import Image from "next/image";
-import PlayerType from "../types/playerType";
+import PlayerClassType from "../types/playerClassType";
+import { CLASS_CONFIG } from "../config/classConfig";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (classType: "Rifleman" | "Sniper") => void;
-  currentClass: PlayerType["class"];
+  onSelect: (classType: PlayerClassType) => void;
+  currentClass: PlayerClassType;
 }
 
 export default function ClassSelectionModal({
@@ -30,47 +31,30 @@ export default function ClassSelectionModal({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-xl text-center mb-4">Select Class</h2>
-        <div className="flex gap-4">
-          <button
-            className={`flex flex-col items-center p-4 rounded-lg ${
-              currentClass === "Rifleman" ? "bg-sky-600" : "bg-gray-700"
-            }`}
-            onClick={() => {
-              onSelect("Rifleman");
-              onClose();
-            }}
-          >
-            <div className="h-28 w-28 relative">
-              <Image
-                className="invert"
-                src="/icons/m4.webp"
-                alt="Rifleman"
-                layout="fill"
-                objectFit="contain"
-              />
-            </div>
-            <span>Rifleman</span>
-          </button>
-          <button
-            className={`flex flex-col items-center p-4 rounded-lg ${
-              currentClass === "Sniper" ? "bg-sky-600" : "bg-gray-700"
-            }`}
-            onClick={() => {
-              onSelect("Sniper");
-              onClose();
-            }}
-          >
-            <div className="h-28 w-28 relative">
-              <Image
-                className="invert"
-                src="/icons/sniper.webp"
-                alt="Sniper"
-                layout="fill"
-                objectFit="contain"
-              />
-            </div>
-            <span>Sniper</span>
-          </button>
+        <div className="grid grid-cols-2 grid-rows-2 gap-4">
+          {Object.values(PlayerClassType).map((classType) => (
+            <button
+              key={classType}
+              className={`flex flex-col items-center p-4 rounded-lg ${
+                currentClass === classType ? "bg-sky-600" : "bg-gray-700"
+              }`}
+              onClick={() => {
+                onSelect(classType);
+                onClose();
+              }}
+            >
+              <div className="h-28 w-28 relative">
+                <Image
+                  className="invert"
+                  src={CLASS_CONFIG[classType].icon}
+                  alt={classType}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+              <span>{classType}</span>
+            </button>
+          ))}
         </div>
       </div>
     </div>

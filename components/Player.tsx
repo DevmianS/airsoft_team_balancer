@@ -2,12 +2,14 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 import PlayerType from "../types/playerType";
 import ClassSelectionModal from "./ClassSelectionModal";
+import { CLASS_CONFIG } from "../config/classConfig";
+import PlayerClassType from "../types/playerClassType";
 
 interface Props {
   player: PlayerType;
   playerTeam?: "T" | "CT";
   deleteHandler?: (playerId: string) => void;
-  togglePlayerClass?: (playerId: string) => void;
+  togglePlayerClass?: (playerId: string, newClass: PlayerClassType) => void;
   toggleDisabled?: (playerId: string) => void;
   inputVisible?: boolean;
 }
@@ -31,16 +33,16 @@ export default function Player({
   }
 
   function getPlayerClass(playerTeam = "CT") {
-    if (player.class === "Rifleman" && playerTeam === "T")
-      return "/icons/ak47.webp";
-    if (player.class === "Rifleman") return "/icons/m4.webp";
-    if (player.class === "Sniper") return "/icons/sniper.webp";
-    else return "";
+    const config = CLASS_CONFIG[player.class];
+    if (playerTeam === "T" && config.terroristIcon) {
+      return config.terroristIcon;
+    }
+    return config.icon;
   }
 
-  const handleClassChange = (newClass: "Rifleman" | "Sniper") => {
+  const handleClassChange = (newClass: PlayerClassType) => {
     if (playerRef.current?.dataset.playerid && togglePlayerClass) {
-      togglePlayerClass(playerRef.current?.dataset.playerid);
+      togglePlayerClass(playerRef.current?.dataset.playerid, newClass);
     }
   };
 

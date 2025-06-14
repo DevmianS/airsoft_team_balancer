@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { CLASS_CONFIG } from "../config/classConfig";
 
 // import autoAnimate from '@formkit/auto-animate';
 
@@ -7,6 +8,7 @@ import PlayerType from "../types/playerType";
 import AddNewPlayer from "./AddNewPlayer";
 
 import Player from "./Player";
+import PlayerClassType from "../types/playerClassType";
 
 export default function PlayerList() {
   const containerRef = useRef(null);
@@ -42,47 +44,48 @@ export default function PlayerList() {
     setAllPlayersArr((players) => players.concat(player));
   };
 
-  function randomInteger(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   const balancer = () => {
-    let allPlayersReduced = allPlayers.filter((player) => !player.disabled);
-    let terroristsArr = [] as PlayerType[];
-    let counterTerroristsArr = [] as PlayerType[];
-    const isAllPlayersCountEven = allPlayers.length % 2 === 0;
-    const riflemanArr = allPlayersReduced.filter(
-      (player) => player.class === "Rifleman"
-    );
+    const allPlayersReduced = allPlayers.filter((player) => !player.disabled);
 
-    const sniperArr = allPlayersReduced.filter(
-      (player) => player.class === "Sniper"
-    );
+    const MAX_ATTEMPTS = 100;
+    let bestTerrorists: PlayerType[] = [];
+    let bestCounterTerrorists: PlayerType[] = [];
+    let smallestDiff = Infinity;
 
-    let currentTeam = terroristsArr;
-    if (isAllPlayersCountEven) {
-      currentTeam =
-        randomInteger(1, 2) === 1 ? terroristsArr : counterTerroristsArr;
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      // Shuffle players randomly
+      const shuffled = [...allPlayersReduced].sort(() => Math.random() - 0.5);
+
+      const terrorists: PlayerType[] = [];
+      const counterTerrorists: PlayerType[] = [];
+      let terrorPoints = 0;
+      let ctPoints = 0;
+
+      shuffled.forEach((player) => {
+        const points = CLASS_CONFIG[player.class].points;
+
+        if (terrorPoints <= ctPoints) {
+          terrorists.push(player);
+          terrorPoints += points;
+        } else {
+          counterTerrorists.push(player);
+          ctPoints += points;
+        }
+      });
+
+      const diff = Math.abs(terrorPoints - ctPoints);
+      if (diff < smallestDiff) {
+        smallestDiff = diff;
+        bestTerrorists = terrorists;
+        bestCounterTerrorists = counterTerrorists;
+      }
+
+      // Optional: short-circuit if a perfect split is found
+      if (diff <= 1) break;
     }
 
-    while (riflemanArr.length > 0) {
-      const randomInt = randomInteger(0, riflemanArr.length - 1);
-      currentTeam.push(riflemanArr[randomInt]);
-      riflemanArr.splice(randomInt, 1);
-      currentTeam =
-        currentTeam === terroristsArr ? counterTerroristsArr : terroristsArr;
-    }
-
-    while (sniperArr.length > 0) {
-      const randomInt = randomInteger(0, sniperArr.length - 1);
-      currentTeam.push(sniperArr[randomInt]);
-      sniperArr.splice(randomInt, 1);
-      currentTeam =
-        currentTeam === terroristsArr ? counterTerroristsArr : terroristsArr;
-    }
-
-    setTerrorists(terroristsArr);
-    setCounterTerrorists(counterTerroristsArr);
+    setTerrorists(bestTerrorists);
+    setCounterTerrorists(bestCounterTerrorists);
     setIsRandomized(true);
   };
 
@@ -100,23 +103,18 @@ export default function PlayerList() {
     }
   }
 
-  function togglePlayerClass(playerId: string) {
-    console.log("🟥", playerId);
+  function togglePlayerClass(playerId: string, newClass: PlayerClassType) {
     setAllPlayersArr((prev) =>
       prev.map((player) => {
         if (player.id === playerId) {
           return {
             ...player,
-            class: player.class === "Rifleman" ? "Sniper" : "Rifleman",
+            class: newClass,
           };
         }
         return player;
       })
     );
-    // setAllPlayersArr((arr) => arr.filter((player) => player.id !== playerId));
-    // if (allPlayers.length === 0) {
-    //   localStorage.removeItem("players");
-    // }
   }
 
   function toggleDisabled(playerId: string) {
@@ -161,13 +159,31 @@ export default function PlayerList() {
         </div>
       )}
       {terrorists.length > 0 && isRandomized && (
-        <div className="w-20 bg-sand h-8 flex-col text-xl z-10 top-[-16px] right-0 translate-x-[50%] rounded-bl-lg flex justify-center transition-all duration-300 items-center absolute animate-slideleft">
-          {terrorists.length}
+        <div className="w-32 bg-sand h-12 flex-col text-xl z-10 top-[-16px] right-0 translate-x-[50%] rounded-bl-lg flex justify-center transition-all duration-300 items-center absolute animate-slideleft">
+          <span>{terrorists.length}</span>
+          <span className="text-sm">
+            {terrorists
+              .reduce(
+                (sum, player) => sum + CLASS_CONFIG[player.class].points,
+                0
+              )
+              .toFixed(1)}{" "}
+            Points
+          </span>
         </div>
       )}
       {counterTerrorists.length > 0 && isRandomized && (
-        <div className="w-20 bg-lightblue h-8 flex-col text-xl z-10 top-[-16px] left-0 translate-x-[50%] rounded-br-lg flex justify-center transition-all duration-300 items-center absolute animate-slideright">
-          {counterTerrorists.length}
+        <div className="w-32 bg-lightblue h-12 flex-col text-xl z-10 top-[-16px] left-0 translate-x-[50%] rounded-br-lg flex justify-center transition-all duration-300 items-center absolute animate-slideright">
+          <span>{counterTerrorists.length}</span>
+          <span className="text-sm">
+            {counterTerrorists
+              .reduce(
+                (sum, player) => sum + CLASS_CONFIG[player.class].points,
+                0
+              )
+              .toFixed(1)}{" "}
+            Points
+          </span>
         </div>
       )}
       {!isRandomized && (
@@ -379,7 +395,7 @@ export default function PlayerList() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M3.75 5.25h16.5m-16.5 4.5h-16.5m16.5 4.5h-16.5m16.5 4.5h-16.5"
+                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
               />
             </svg>
           </p>
