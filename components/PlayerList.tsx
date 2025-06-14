@@ -168,7 +168,7 @@ export default function PlayerList() {
                 0
               )
               .toFixed(1)}{" "}
-            Points
+            Pts.
           </span>
         </div>
       )}
@@ -182,7 +182,7 @@ export default function PlayerList() {
                 0
               )
               .toFixed(1)}{" "}
-            Points
+            Pts.
           </span>
         </div>
       )}
