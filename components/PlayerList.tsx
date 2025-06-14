@@ -46,7 +46,7 @@ export default function PlayerList() {
   }
 
   const balancer = () => {
-    let allPlayersReduced = allPlayers;
+    let allPlayersReduced = allPlayers.filter((player) => !player.disabled);
     let terroristsArr = [] as PlayerType[];
     let counterTerroristsArr = [] as PlayerType[];
     const isAllPlayersCountEven = allPlayers.length % 2 === 0;
@@ -117,6 +117,24 @@ export default function PlayerList() {
     // }
   }
 
+  function toggleDisabled(playerId: string) {
+    setAllPlayersArr((prev) =>
+      prev.map((player) => {
+        if (player.id === playerId) {
+          return {
+            ...player,
+            disabled: !player.disabled,
+          };
+        }
+        return player;
+      })
+    );
+  }
+
+  const getEnabledPlayersCount = () => {
+    return allPlayers.filter((player) => !player.disabled).length;
+  };
+
   return (
     <div
       ref={containerRef}
@@ -152,6 +170,7 @@ export default function PlayerList() {
               inputVisible={inputVisible}
               deleteHandler={deletePlayer}
               togglePlayerClass={togglePlayerClass}
+              toggleDisabled={toggleDisabled}
               key={player.id}
               player={player}
             />
@@ -195,7 +214,7 @@ export default function PlayerList() {
           </div>
         </div>
       )}
-      {allPlayers.length !== 0 && (
+      {allPlayers.length !== 0 && getEnabledPlayersCount() > 0 && (
         <>
           <button
             className={`w-20 bg-sky-600 h-20 flex-col z-10 bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed  ${
@@ -321,7 +340,7 @@ export default function PlayerList() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                d="M3.75 5.25h16.5m-16.5 4.5h-16.5m16.5 4.5h-16.5m16.5 4.5h-16.5"
               />
             </svg>
           </p>

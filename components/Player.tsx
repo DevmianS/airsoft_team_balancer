@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import PlayerType from "../types/playerType";
 
@@ -7,6 +7,7 @@ interface Props {
   playerTeam?: "T" | "CT";
   deleteHandler?: (playerId: string) => void;
   togglePlayerClass?: (playerId: string) => void;
+  toggleDisabled?: (playerId: string) => void;
   inputVisible?: boolean;
 }
 
@@ -15,6 +16,7 @@ export default function Player({
   playerTeam,
   deleteHandler,
   togglePlayerClass,
+  toggleDisabled,
   inputVisible,
 }: Props) {
   const playerRef = useRef<HTMLLIElement>(null);
@@ -47,7 +49,7 @@ export default function Player({
         playerTeam === "CT"
           ? "flex-col bg-gradient-to-b from-lightblue to-lighterblue p-2 gap-1 px-1"
           : ""
-      }`}
+      } ${player.disabled ? "opacity-50" : ""}`}
     >
       <p
         className={`text-2xl text-ellipsis overflow-hidden max-w-[40vw] h-8 ${
@@ -130,6 +132,34 @@ export default function Player({
           </p>
           <p className="text-xs">DELETE</p>
         </button>
+      )}
+      {showModifyButtons && (
+        <>
+          <button
+            onClick={() => {
+              if (playerRef.current?.dataset.playerid && toggleDisabled) {
+                toggleDisabled(playerRef.current?.dataset.playerid);
+              }
+            }}
+            className="absolute right-52 top-0 gap-1 bottom-0 w-20 h-20 bg-yellow-600 rounded-lg my-auto flex flex-col justify-center transition-all duration-300 items-center animate-pop"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-12 h-12"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+              />
+            </svg>
+            <p className="text-xs">{player.disabled ? "ENABLE" : "DISABLE"}</p>
+          </button>
+        </>
       )}
     </li>
   );
