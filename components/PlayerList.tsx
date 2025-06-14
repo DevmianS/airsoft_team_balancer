@@ -21,6 +21,7 @@ export default function PlayerList() {
   const [isRandomized, setIsRandomized] = useState(false);
 
   const [inputVisible, setInputVisible] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     if (allPlayers.length !== 0 || !localStorage.getItem("players")) {
@@ -89,6 +90,7 @@ export default function PlayerList() {
     setAllPlayersArr([]);
     setIsRandomized(false);
     localStorage.removeItem("players");
+    setShowDeleteConfirm(false);
   }
 
   function deletePlayer(playerId: string) {
@@ -143,6 +145,7 @@ export default function PlayerList() {
       }`}
       onClick={(e) => {
         setInputVisible(false);
+        setShowDeleteConfirm(false);
       }}
     >
       {allPlayers.length > 0 && !isRandomized && (
@@ -214,38 +217,43 @@ export default function PlayerList() {
           </div>
         </div>
       )}
-      {allPlayers.length !== 0 && getEnabledPlayersCount() > 0 && (
+      {allPlayers.length !== 0 && (
         <>
-          <button
-            className={`w-20 bg-sky-600 h-20 flex-col z-10 bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed  ${
-              !isRandomized && allPlayers.length > 1
-                ? "animate-bounce"
-                : "animate-slideright"
-            }`}
-            onClick={balancer}
-          >
-            <p className="text-6xl">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-12 h-12 active:animate-spin"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                />
-              </svg>
-            </p>
-            <p className="text-xs">CREATE TEAMS</p>
-          </button>
+          {getEnabledPlayersCount() > 0 && (
+            <button
+              className={`w-20 bg-sky-600 h-20 flex-col z-10 bottom-3 left-3 rounded-lg flex justify-center transition-all duration-300 items-center fixed  ${
+                !isRandomized && allPlayers.length > 1
+                  ? "animate-bounce"
+                  : "animate-slideright"
+              }`}
+              onClick={balancer}
+            >
+              <p className="text-6xl">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-12 h-12 active:animate-spin"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                  />
+                </svg>
+              </p>
+              <p className="text-xs">CREATE TEAMS</p>
+            </button>
+          )}
           <div className="w-full flex justify-center mt-4">
             <button
               className={`animate-pop w-20 bg-red-600 h-20 bottom-3 left-3 rounded-lg flex flex-col justify-center gap-1 transition-all duration-300 items-center`}
-              onClick={deleteAllPlayers}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteConfirm(true);
+              }}
             >
               <p className="text-6xl">
                 <svg
@@ -267,6 +275,30 @@ export default function PlayerList() {
             </button>
           </div>
         </>
+      )}
+      {showDeleteConfirm && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-gray-800 p-6 rounded-lg text-center">
+            <p className="mb-4">Are you sure you want to delete all players?</p>
+            <div className="flex gap-4 justify-center">
+              <button
+                className="bg-red-600 px-4 py-2 rounded"
+                onClick={deleteAllPlayers}
+              >
+                Yes, delete all
+              </button>
+              <button
+                className="bg-gray-600 px-4 py-2 rounded"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       )}
       <div
         className={`bg-gray-900 flex justify-center fixed bottom-0 w-full transition-all ${
